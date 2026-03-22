@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ahmed Bakry - Back-end Developer</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #ffffff;
+      --bg-secondary: #f6f6f4;
+      --text: #111110;
+      --text-secondary: #6b6b68;
+      --text-tertiary: #9d9d99;
+      --border: rgba(0,0,0,0.12);
+      --border-secondary: rgba(0,0,0,0.22);
+      --radius-md: 8px;
+      --radius-lg: 12px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #1a1a18;
+        --bg-secondary: #242422;
+        --text: #f0ede8;
+        --text-secondary: #9d9d99;
+        --text-tertiary: #6b6b68;
+        --border: rgba(255,255,255,0.12);
+        --border-secondary: rgba(255,255,255,0.22);
+      }
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 2rem;
+      border-bottom: 0.5px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      z-index: 10;
+    }
+    .nav-logo { font-size: 15px; font-weight: 500; letter-spacing: -0.3px; color: var(--text); text-decoration: none; }
+    .nav-links { display: flex; gap: 1.5rem; }
+    .nav-links a { font-size: 13px; color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+
+    section { padding: 4.5rem 2rem; max-width: 860px; margin: 0 auto; }
+    .divider { height: 0.5px; background: var(--border); max-width: 860px; margin: 0 auto; }
+    .section-label {
+      font-size: 11px; font-weight: 500; letter-spacing: 1.8px;
+      text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 2.5rem;
+    }
+
+    .hero { padding-top: 5.5rem; padding-bottom: 5.5rem; }
+    .hero-tag { font-size: 12px; font-weight: 500; color: var(--text-secondary); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 1.2rem; }
+    .hero h1 { font-size: 44px; font-weight: 500; color: var(--text); letter-spacing: -1.2px; line-height: 1.15; margin-bottom: 1rem; }
+    .hero h1 span { color: var(--text-secondary); }
+    .hero p { font-size: 16px; color: var(--text-secondary); line-height: 1.7; max-width: 520px; margin-bottom: 2rem; }
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    .btn-primary {
+      background: var(--text); color: var(--bg); border: none;
+      padding: 10px 20px; border-radius: var(--radius-md);
+      font-size: 13px; font-weight: 500; cursor: pointer;
+      text-decoration: none; display: inline-block; transition: opacity 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.75; }
+
+    .btn-outline {
+      background: transparent; color: var(--text);
+      border: 0.5px solid var(--border-secondary);
+      padding: 10px 20px; border-radius: var(--radius-md);
+      font-size: 13px; cursor: pointer; text-decoration: none;
+      display: inline-block; transition: background 0.2s;
+    }
+    .btn-outline:hover { background: var(--bg-secondary); }
+
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+    .skill-card {
+      background: var(--bg-secondary); border-radius: var(--radius-lg);
+      padding: 1.2rem; border: 0.5px solid var(--border);
+    }
+    .skill-card h4 { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 10px; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag {
+      background: var(--bg); border: 0.5px solid var(--border);
+      color: var(--text-secondary); font-size: 11px; padding: 3px 10px; border-radius: 99px;
+    }
+
+    .projects-list {
+      display: flex; flex-direction: column;
+      border: 0.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden;
+    }
+    .project-item {
+      background: var(--bg); padding: 1.4rem 1.5rem;
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 1rem; border-bottom: 0.5px solid var(--border);
+      text-decoration: none; transition: background 0.15s;
+    }
+    .project-item:last-child { border-bottom: none; }
+    .project-item:hover { background: var(--bg-secondary); }
+    .project-info h3 { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+    .project-info p { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+    .project-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+    .project-arrow { font-size: 16px; color: var(--text-tertiary); flex-shrink: 0; margin-top: 2px; }
+
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .contact-card {
+      background: var(--bg-secondary); border-radius: var(--radius-lg);
+      border: 0.5px solid var(--border); padding: 1.2rem 1.5rem;
+      display: flex; flex-direction: column; gap: 4px;
+      text-decoration: none; transition: border-color 0.2s;
+    }
+    .contact-card:hover { border-color: var(--border-secondary); }
+    .contact-card .label { font-size: 11px; color: var(--text-tertiary); letter-spacing: 0.5px; }
+    .contact-card .value { font-size: 14px; font-weight: 500; color: var(--text); }
+
+    footer {
+      text-align: center; padding: 2rem; font-size: 12px;
+      color: var(--text-tertiary); border-top: 0.5px solid var(--border);
+    }
+
+    @media (max-width: 600px) {
+      nav { padding: 1rem 1.2rem; }
+      section { padding: 3rem 1.2rem; }
+      .hero h1 { font-size: 30px; }
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="#">Ahmed Bakry</a>
+    <div class="nav-links">
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+      <a href="#about">About</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-tag">Back-end Developer</div>
+    <h1>Building the logic<br><span>behind great products.</span></h1>
+    <p>I design and build reliable, scalable server-side systems — from REST APIs to databases to cloud infrastructure.</p>
+    <div class="hero-btns">
+      <a class="btn-primary" href="#projects">View Projects</a>
+      <a class="btn-outline" href="#contact">Get in Touch</a>
+    </div>
+  </section>
+
+
+  <section id="skills">
+    <div class="section-label">Skills &amp; Stack</div>
+    <div class="skills-grid">
+
+      <div class="skill-card">
+        <h4>Languages</h4>
+        <div class="skill-tags">
+          <span class="tag">C#</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">SQL</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <h4>Frameworks</h4>
+        <div class="skill-tags">
+          <span class="tag">.NET</span>
+          <span class="tag">Django</span>
+          <span class="tag">Express</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <h4>Databases</h4>
+        <div class="skill-tags">
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">MongoDB</span>
+          <span class="tag">Redis</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <h4>DevOps</h4>
+        <div class="skill-tags">
+          <span class="tag">Docker</span>
+          <span class="tag">Linux</span>
+          <span class="tag">Git</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section id="projects">
+    <div class="section-label">Projects</div>
+    <div class="projects-list">
+
+      <a class="project-item" href="https://github.com/ahmedbakry/project-1" target="_blank">
+        <div class="project-info">
+          <h3>REST API - E-commerce Platform</h3>
+          <p>Full backend for an online store with auth, orders, payments, and admin panel.</p>
+          <div class="project-tags">
+            <span class="tag">Node.js</span>
+            <span class="tag">PostgreSQL</span>
+            <span class="tag">JWT</span>
+          </div>
+        </div>
+        <div class="project-arrow">&#8599;</div>
+      </a>
+
+      <a class="project-item" href="https://github.com/ahmedbakry/project-2" target="_blank">
+        <div class="project-info">
+          <h3>Real-time Chat Service</h3>
+          <p>WebSocket-based messaging system with rooms, notifications, and message history.</p>
+          <div class="project-tags">
+            <span class="tag">Socket.io</span>
+            <span class="tag">Redis</span>
+            <span class="tag">MongoDB</span>
+          </div>
+        </div>
+        <div class="project-arrow">&#8599;</div>
+      </a>
+
+      <a class="project-item" href="https://github.com/ahmedbakry/project-3" target="_blank">
+        <div class="project-info">
+          <h3>Task Management API</h3>
+          <p>Team task tracker with role-based permissions, deadlines, and email notifications.</p>
+          <div class="project-tags">
+            <span class="tag">Django</span>
+            <span class="tag">Celery</span>
+            <span class="tag">PostgreSQL</span>
+          </div>
+        </div>
+        <div class="project-arrow">&#8599;</div>
+      </a>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section id="contact">
+    <div class="section-label">Contact</div>
+    <div class="contact-grid">
+
+      <a class="contact-card" id="email-link" href="#">
+        <span class="label">Email</span>
+        <span class="value" id="email-display"></span>
+      </a>
+
+      <a class="contact-card" href="https://github.com/ahmedbakry" target="_blank">
+        <span class="label">GitHub</span>
+        <span class="value">github.com/ahmedbakry</span>
+      </a>
+
+      <a class="contact-card" href="https://www.linkedin.com/in/ahmed-bakry-146544390" target="_blank">
+        <span class="label">LinkedIn</span>
+        <span class="value">linkedin.com/in/ahmed-bakry</span>
+      </a>
+
+      <a class="contact-card" href="https://wa.me/201155073747" target="_blank">
+        <span class="label">WhatsApp</span>
+        <span class="value">+20 115 507 3747</span>
+      </a>
+
+      <div class="contact-card">
+        <span class="label">Location</span>
+        <span class="value">Cairo, Egypt</span>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section id="about">
+    <div class="section-label">About Me</div>
+    <div style="display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap;">
+      <img src="data:image/jpeg;base64,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" alt="Ahmed Bakry" style="width:120px; height:120px; border-radius:50%; object-fit:cover; border:0.5px solid var(--border); flex-shrink:0;" onerror="this.style.display='none'; document.getElementById('avatar-fallback').style.display='flex';" />
+      <div id="avatar-fallback" style="display:none; width:120px; height:120px; border-radius:50%; background:var(--bg-secondary); border:0.5px solid var(--border); align-items:center; justify-content:center; font-size:36px; font-weight:500; color:var(--text-secondary); flex-shrink:0;">AB</div>
+      <div style="flex:1; min-width:220px;">
+        <h2 style="font-size:20px; font-weight:500; color:var(--text); margin-bottom:0.75rem; letter-spacing:-0.4px;">Ahmed Bakry</h2>
+        <p style="font-size:15px; color:var(--text-secondary); line-height:1.8;">I am a Computer Science student with a strong passion for Back-end development. I enjoy building reliable server-side systems and APIs using technologies like C#, .NET, and SQL. I am currently focused on gaining real-world experience, sharpening my skills, and working on projects that challenge me to grow as a developer. I believe that every line of code is a step toward becoming better.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>Ahmed Bakry - Back-end Developer</footer>
+
+  <script>
+    (function() {
+      var c = [97,104,109,101,100,98,97,107,114,121,115,104,97,109,105,121,97,64,103,109,97,105,108,46,99,111,109];
+      var email = '';
+      for (var i = 0; i < c.length; i++) { email += String.fromCharCode(c[i]); }
+      var link = document.getElementById('email-link');
+      var disp = document.getElementById('email-display');
+      if (link) link.setAttribute('href', 'mai' + 'lto:' + email);
+      if (disp) disp.textContent = email;
+    })();
+  </script>
+
+</body>
+</html>
